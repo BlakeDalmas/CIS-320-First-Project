@@ -1,31 +1,34 @@
-$("#button1").click(function() {
-  console.log("Hello");
-});
+$('#button1').on("click", logFunction);
+$('#button2').on("click", sumFunction);
+$('#button3').on("click", toggleFunction);
+$('#button4').on("click", phoneFunction);
+$('#button5').on("click", jsonFunction);
 
-$("#button2").click(function() {
+function logFunction() {
+    console.log("Hello");
+}
+
+function sumFunction() {
     var left = $("#field1").val() || 0;
     var right = $("#field2").val() || 0;
     var sum = parseFloat(left) + parseFloat(right);
 
     $("#field3").val(sum);
-});
+}
 
-$("#button3").click(function() {
-   $("#paragraphToHide").toggle();
-});
+function toggleFunction() {
+    $("#paragraphToHide").toggle();
+}
 
-$("#button4").click(function() {
-   var phone = $("#phoneField").val();
-   var pattern = /^\d{3}-\d{3}-\d{4}$/;
+function phoneFunction() {
+    var phone = $("#phoneField").val();
+    var pattern = /^\d{3}-\d{3}-\d{4}$/;
+    var output = pattern.test(phone) ? "OK" : "Bad";
 
-   if (pattern.test(phone)) {
-       console.log("OK");
-   } else {
-       console.log("Bad");
-   }
-});
+    console.log(output);
+}
 
-$("#button5").click(function() {
+function jsonFunction() {
     var firstName = $("#firstName").val();
     var lastName = $("#lastName").val();
     var email = $("#email").val();
@@ -37,4 +40,4 @@ $("#button5").click(function() {
     var result = JSON.stringify(objJSON);
 
     console.log(result);
-})
+}
