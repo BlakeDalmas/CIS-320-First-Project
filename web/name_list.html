@@ -63,11 +63,41 @@
             </div>
             <div class="modal-body">
                 <form id="my-form" name="my-form">
-                    <div class="form-group">
-                        <label for="firstName">First Name:</label> <input type="hidden" id="id" name="id" class="form-control"><br>
-                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First name"><br>
-                        <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name"><br>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Email address"><br>
+                    <input type="hidden" id="id" name="id" class="form-control">
+
+                    <div id="firstNameDiv" class="form-group has-feedback">
+                        <label class="control-label" for="firstName">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First name" aria-describedby="firstNameStatus"/>
+                        <span id="firstNameGlyph" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span id="firstNameStatus" class="sr-only"></span> <!-- Text goes in firstNameStatus for screen readers that can't see our icons. -->
+                    </div>
+
+                    <div id="lastNameDiv" class="form-group has-feedback">
+                        <label class="control-label" for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name" aria-describedby="lastNameStatus"/>
+                        <span id="lastNameGlyph" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span id="lastNameStatus" class="sr-only"></span>
+                    </div>
+
+                    <div id="emailDiv" class="form-group has-feedback">
+                        <label class="control-label" for="email">Email:</label>
+                        <input type="text" id="email" name="email" class="form-control" placeholder="Email" aria-describedby="emailStatus"/>
+                        <span id="emailGlyph" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span id="emailStatus" class="sr-only"></span>
+                    </div>
+
+                    <div id="phoneDiv" class="form-group has-feedback">
+                        <label class="control-label" for="phone">Phone Number:</label>
+                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" aria-describedby="phoneStatus"/>
+                        <span id="phoneGlyph" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span id="phoneStatus" class="sr-only"></span>
+                    </div>
+
+                    <div id="birthdayDiv" class="form-group has-feedback">
+                        <label class="control-label" for="birthday">Birthday:</label>
+                        <input type="text" id="birthday" name="birthday" class="form-control" placeholder="Birthday (YYYY-MM-DD)" aria-describedby="birthdayStatus"/>
+                        <span id="birthdayGlyph" class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span id="birthdayStatus" class="sr-only"></span>
                     </div>
                 </form>
             </div>
