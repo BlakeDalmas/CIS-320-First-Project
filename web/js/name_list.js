@@ -4,16 +4,18 @@ addItemButton.on("click", showDialogAdd);
 var saveChangesButton = $('#saveChanges');
 saveChangesButton.on("click", saveChanges);
 
+
+
+var checks = [
+    ["#firstName", /^\S{1,40}$/],
+    ["#lastName", /^\S{1,40}$/],
+    ["#email", /^[\.a-zA-Z0-9_]+@[\.a-zA-Z_]+\.[a-zA-Z_]{2,3}$/],
+    ["#phone", /^\d{10}$|^\d{3}-\d{3}-\d{4}$/],
+    ["#birthday", /^\d{4}\-([0][1-9]|[1][0-2])\-([0][1-9]|[1-2][0-9]|[3][0-2])$/]
+];
+
 function saveChanges() {
     console.log("Changes Saved");
-
-    var checks = [
-        ["#firstName", /^\S{1,40}$/],
-        ["#lastName", /^\S{1,40}$/],
-        ["#email", /^[\.a-zA-Z0-9_]+@[\.a-zA-Z_]+\.[a-zA-Z_]{2,3}$/],
-        ["#phone", /^\d{10}$|^\d{3}-\d{3}-\d{4}$/],
-        ["#birthday", /^\d{4}\-([0][1-9]|[1][0-2])\-([0][1-9]|[1-2][0-9]|[3][0-2])$/]
-    ];
 
     var valid_form = true;
 
@@ -37,22 +39,47 @@ function saveChanges() {
     if (valid_form) {
         $('#myModal').modal('hide');
 
+        var json = '{';
+
         for (var i = 0; i < checks.length; i++) {
             var identifier = checks[i][0];
+            var str_name = identifier.substring(1, identifier.length);
+            var str_val = $(identifier).val();
+
             $(identifier).removeClass("is-valid");
             $(identifier).removeClass("is-invalid");
+
+            json += '\"'+str_name+'\"' + ':' + '\"'+str_val+'\"';
+
+            if (i < checks.length - 1) json += ',';
         }
+
+        json += '}';
+
+        var jsonObj = JSON.parse(json);
+
+        var url = "api/name_list_edit";
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: JSON.stringify(jsonObj),
+            success: [function(dataFromServer) {
+                updateTable();
+            }],
+            contentType: "application/json",
+            dataType: 'text' // Could be JSON or whatever too
+        });
     }
 }
 
 function showDialogAdd() {
     // Clear out the values in the form.
     $('#id').val("");
-    $('#firstName').val("");
-    $('#lastName').val("");
-    $('#email').val("");
-    $('#phone').val("");
-    $('#birthday').val("");
+
+    for (var i = 0; i < checks.length; i++) {
+        $(checks[i][0]).val("");
+    }
 
     // Show the hidden dialog
     $('#myModal').modal('show');
