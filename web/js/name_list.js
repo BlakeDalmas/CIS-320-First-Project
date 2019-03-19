@@ -4,7 +4,25 @@ addItemButton.on("click", showDialogAdd);
 var saveChangesButton = $('#saveChanges');
 saveChangesButton.on("click", saveChanges);
 
+function deleteItem(e) {
+    console.log(e.target.value);
 
+    var json = '{\"id\":' + e.target.value + '}';
+    var jsonObj = JSON.parse(json);
+
+    var url = "api/name_list_delete";
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: JSON.stringify(jsonObj),
+        success: [function(dataFromServer) {
+            updateTable();
+        }],
+        contentType: "application/json",
+        dataType: 'text' // Could be JSON or whatever too
+    });
+}
 
 var checks = [
     ["#firstName", /^\S{1,40}$/],
@@ -25,11 +43,9 @@ function saveChanges() {
         var regex = checks[i][1];
 
         if (regex.test(inputVal)) {
-            console.log(identifier + " is valid.");
             $(identifier).removeClass("is-invalid");
             $(identifier).addClass("is-valid");
         } else {
-            console.log(identifier + " is invalid.");
             $(identifier).removeClass("is-valid");
             $(identifier).addClass("is-invalid");
             valid_form = false;
@@ -91,7 +107,7 @@ function updateTable() {
 }
 
 function callback(json_result) {
-    if (json_result.length > 0) {
+   // if (json_result.length > 0) {
         var tbody = '#datatable tbody';
         var thead = '#datatable thead';
 
@@ -103,6 +119,10 @@ function callback(json_result) {
 
         for (var header in json_result[0]) {
             dataStr += '<th>' + header + '</th>'
+        }
+
+        if (json_result.length > 0) {
+            dataStr += '<th>Action</th>';
         }
 
         dataStr += '</tr>';
@@ -117,7 +137,7 @@ function callback(json_result) {
             dataStr += '<tr>';
 
             for (var item in row) {
-                var data = row[item]
+                var data = row[item];
 
                 // Format phone numbers.
                 if (item === "phone" && data.length === 10) {
@@ -127,11 +147,14 @@ function callback(json_result) {
                 dataStr += '<td>' + data + '</td>';
             }
 
-            dataStr += '</tr>';
+            if (json_result.length > 0) {
+                dataStr += '<td><button type=\"button\" name=\"delete\" class=\"deleteButton\" value=\"' + row["id"] + '\"\>Delete</button></td></tr>';
+            }
         }
 
         $(tbody).html(dataStr);
-    }
+        $(".deleteButton").on("click", deleteItem);
+   // }
 }
 
 updateTable();

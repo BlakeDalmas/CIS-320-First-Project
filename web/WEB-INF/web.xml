@@ -22,4 +22,24 @@
         <servlet-name>NameListEdit</servlet-name>
         <url-pattern>/api/name_list_edit</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NameListDelete</servlet-name>
+        <servlet-class>bdcis320.three.NameListDelete</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>NameListDelete</servlet-name>
+        <url-pattern>/api/name_list_delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SurveyGet</servlet-name>
+        <servlet-class>bdcis320.three.SurveyGet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SurveyGet</servlet-name>
+        <url-pattern>/api/survey_get</url-pattern>
+    </servlet-mapping>
 </web-app>
