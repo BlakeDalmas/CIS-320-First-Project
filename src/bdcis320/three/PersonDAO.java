@@ -83,4 +83,48 @@ public class PersonDAO {
         return list;
     }
 
+    public static void updateRecord(Person person) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        String[] fields = {
+            person.getFirst(),
+            person.getLast(),
+            person.getEmail(),
+            person.getPhone(),
+            person.getBirthday()
+        };
+
+        try {
+            conn = DBHelper.getConnection();
+
+            String sql = "UPDATE person SET first = ?, last = ?, email = ?, phone = ?, birthday = ? WHERE id = ?;";
+
+            stmt = conn.prepareStatement(sql);
+
+            for (int i = 0; i < fields.length; i++) {
+                stmt.setString(i + 1, fields[i]);
+            }
+
+            stmt.setInt(6, person.getId());
+
+            stmt.executeUpdate();
+        } catch(SQLException se){
+            log.log(Level.SEVERE, "SQL Error", se);
+        } catch(Exception e){
+            log.log(Level.SEVERE, "Error", e);
+        }
+        finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {
+                log.log(Level.SEVERE, "Error", e);
+            }
+            try {
+                conn.close();
+            } catch (Exception e) {
+                log.log(Level.SEVERE, "Error", e);
+            }
+        }
+    }
 }

@@ -76,25 +76,34 @@ public class NameListEdit extends HttpServlet {
 
         if (fieldsValid(fields, checks)) {
             try {
-                conn = DBHelper.getConnection();
+                System.out.println(jsonPerson.getId());
 
-                String sql = "INSERT INTO person (first, last, email, phone, birthday) VALUES (?, ?, ?, ?, ?);";
+                if (jsonPerson.getId() == 0) {
+                    conn = DBHelper.getConnection();
 
-                stmt = conn.prepareStatement(sql);
+                    stmt = conn.prepareStatement("ALTER TABLE person AUTO_INCREMENT = 1; ");
+                    stmt.execute();
 
-                for (int i = 0; i < fields.length; i++) {
-                    stmt.setString(i + 1, fields[i]);
+                    String sql = "INSERT INTO person (first, last, email, phone, birthday) VALUES (?, ?, ?, ?, ?);";
+
+                    stmt = conn.prepareStatement(sql);
+
+                    for (int i = 0; i < fields.length; i++) {
+                        stmt.setString(i + 1, fields[i]);
+                    }
+
+                    stmt.executeUpdate();
+                } else {
+                    PersonDAO.updateRecord(jsonPerson);
                 }
 
-                stmt.executeUpdate();
-
-                //out.println("{\"success\" : true}");
                 out.print(requestString);
-            } catch (SQLException se) {
+            } catch(SQLException se){
                 log.log(Level.SEVERE, "SQL Error", se);
-            } catch (Exception e) {
+            } catch(Exception e){
                 log.log(Level.SEVERE, "Error", e);
-            } finally {
+            }
+            finally {
                 try {
                     stmt.close();
                 } catch (Exception e) {
