@@ -7,7 +7,6 @@
         <servlet-name>NameListGet</servlet-name>
         <servlet-class>bdcis320.three.NameListGet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>NameListGet</servlet-name>
         <url-pattern>/api/name_list_get</url-pattern>
@@ -17,7 +16,6 @@
         <servlet-name>NameListEdit</servlet-name>
         <servlet-class>bdcis320.three.NameListEdit</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>NameListEdit</servlet-name>
         <url-pattern>/api/name_list_edit</url-pattern>
@@ -27,17 +25,42 @@
         <servlet-name>NameListDelete</servlet-name>
         <servlet-class>bdcis320.three.NameListDelete</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>NameListDelete</servlet-name>
         <url-pattern>/api/name_list_delete</url-pattern>
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>GetLoginServlet</servlet-name>
+        <servlet-class>bdcis320.three.GetLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetLoginServlet</servlet-name>
+        <url-pattern>/api/get_login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>bdcis320.three.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/api/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>bdcis320.three.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/api/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>SurveyGet</servlet-name>
         <servlet-class>bdcis320.three.SurveyGet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>SurveyGet</servlet-name>
         <url-pattern>/api/survey_get</url-pattern>
